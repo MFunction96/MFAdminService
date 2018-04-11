@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFAdminService", "MFAdminService\MFAdminService.csproj", "{65489C7E-D901-41C9-9663-D4023826058B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFAdminPanel", "MFAdminPanel\MFAdminPanel.csproj", "{70D36488-AFD2-41CF-8E8E-0CDAAED183C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFAdminConfig", "MFAdminConfig\MFAdminConfig.csproj", "{D371382F-9DA8-4689-A74D-E0550D1B434A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{70D36488-AFD2-41CF-8E8E-0CDAAED183C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70D36488-AFD2-41CF-8E8E-0CDAAED183C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70D36488-AFD2-41CF-8E8E-0CDAAED183C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D371382F-9DA8-4689-A74D-E0550D1B434A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D371382F-9DA8-4689-A74D-E0550D1B434A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D371382F-9DA8-4689-A74D-E0550D1B434A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D371382F-9DA8-4689-A74D-E0550D1B434A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,7 +14,12 @@ namespace MFAdminPanel.Views
         private void button1_Click(object sender, EventArgs e)
         {
             var sc = new ServiceController();
+            MessageBox.Show(System.Environment.UserName);
+        }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            Show();
         }
     }
 }
