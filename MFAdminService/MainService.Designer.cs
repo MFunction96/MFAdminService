@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ScSrvCtrl = new System.ServiceProcess.ServiceController();
             // 
             // MainService
             // 
@@ -37,6 +36,5 @@
         }
 
         #endregion
-        private System.ServiceProcess.ServiceController ScSrvCtrl;
     }
 }

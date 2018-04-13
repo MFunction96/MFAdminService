@@ -44,7 +44,7 @@
             this.TbKmsAddress.Location = new System.Drawing.Point(116, 90);
             this.TbKmsAddress.Name = "TbKmsAddress";
             this.TbKmsAddress.Size = new System.Drawing.Size(173, 21);
-            this.TbKmsAddress.TabIndex = 0;
+            this.TbKmsAddress.TabIndex = 1;
             // 
             // TbInterval
             // 
@@ -54,7 +54,7 @@
             this.TbInterval.Location = new System.Drawing.Point(116, 44);
             this.TbInterval.Name = "TbInterval";
             this.TbInterval.Size = new System.Drawing.Size(173, 21);
-            this.TbInterval.TabIndex = 1;
+            this.TbInterval.TabIndex = 0;
             // 
             // LblInterval
             // 
@@ -85,10 +85,11 @@
             this.BtnConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnConfirm.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BtnConfirm.Location = new System.Drawing.Point(54, 144);
             this.BtnConfirm.Name = "BtnConfirm";
             this.BtnConfirm.Size = new System.Drawing.Size(75, 23);
-            this.BtnConfirm.TabIndex = 8;
+            this.BtnConfirm.TabIndex = 2;
             this.BtnConfirm.Text = "确认";
             this.BtnConfirm.UseVisualStyleBackColor = true;
             this.BtnConfirm.Click += new System.EventHandler(this.BtnConfirm_Click);
@@ -98,6 +99,7 @@
             this.BtnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.BtnExit.Location = new System.Drawing.Point(197, 144);
             this.BtnExit.Name = "BtnExit";
             this.BtnExit.Size = new System.Drawing.Size(75, 23);
@@ -108,8 +110,10 @@
             // 
             // MainFrom
             // 
+            this.AcceptButton = this.BtnConfirm;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.BtnExit;
             this.ClientSize = new System.Drawing.Size(332, 203);
             this.ControlBox = false;
             this.Controls.Add(this.BtnExit);

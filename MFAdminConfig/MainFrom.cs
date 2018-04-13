@@ -19,7 +19,7 @@ namespace MFAdminConfig
                 Interval = int.Parse(TbInterval.Text),
                 KmsServer = TbKmsAddress.Text
             };
-            var json = JsonConvert.SerializeObject(config);
+            var json = JsonConvert.SerializeObject(config, Formatting.Indented);
             const string path = @"C:\ProgramData\MFAdmin";
             var dir = new DirectoryInfo(path);
             if (!dir.Exists) dir.Create();

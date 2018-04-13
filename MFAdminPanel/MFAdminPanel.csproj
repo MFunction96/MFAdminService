@@ -93,11 +93,5 @@
   <ItemGroup>
     <Folder Include="Models\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MFAdminService\MFAdminService.csproj">
-      <Project>{65489c7e-d901-41c9-9663-d4023826058b}</Project>
-      <Name>MFAdminService</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
