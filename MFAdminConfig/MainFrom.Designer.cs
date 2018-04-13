@@ -28,20 +28,112 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.TbKmsAddress = new System.Windows.Forms.TextBox();
+            this.TbInterval = new System.Windows.Forms.TextBox();
+            this.LblInterval = new System.Windows.Forms.Label();
+            this.LblKmsAddress = new System.Windows.Forms.Label();
+            this.BtnConfirm = new System.Windows.Forms.Button();
+            this.BtnExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Form1
+            // TbKmsAddress
+            // 
+            this.TbKmsAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TbKmsAddress.Location = new System.Drawing.Point(116, 90);
+            this.TbKmsAddress.Name = "TbKmsAddress";
+            this.TbKmsAddress.Size = new System.Drawing.Size(173, 21);
+            this.TbKmsAddress.TabIndex = 0;
+            // 
+            // TbInterval
+            // 
+            this.TbInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TbInterval.Location = new System.Drawing.Point(116, 44);
+            this.TbInterval.Name = "TbInterval";
+            this.TbInterval.Size = new System.Drawing.Size(173, 21);
+            this.TbInterval.TabIndex = 1;
+            // 
+            // LblInterval
+            // 
+            this.LblInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblInterval.AutoSize = true;
+            this.LblInterval.Location = new System.Drawing.Point(43, 47);
+            this.LblInterval.Name = "LblInterval";
+            this.LblInterval.Size = new System.Drawing.Size(53, 12);
+            this.LblInterval.TabIndex = 2;
+            this.LblInterval.Text = "查询间隔";
+            // 
+            // LblKmsAddress
+            // 
+            this.LblKmsAddress.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LblKmsAddress.AutoSize = true;
+            this.LblKmsAddress.Location = new System.Drawing.Point(49, 93);
+            this.LblKmsAddress.Name = "LblKmsAddress";
+            this.LblKmsAddress.Size = new System.Drawing.Size(47, 12);
+            this.LblKmsAddress.TabIndex = 3;
+            this.LblKmsAddress.Text = "KMS地址";
+            // 
+            // BtnConfirm
+            // 
+            this.BtnConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnConfirm.Location = new System.Drawing.Point(54, 144);
+            this.BtnConfirm.Name = "BtnConfirm";
+            this.BtnConfirm.Size = new System.Drawing.Size(75, 23);
+            this.BtnConfirm.TabIndex = 8;
+            this.BtnConfirm.Text = "确认";
+            this.BtnConfirm.UseVisualStyleBackColor = true;
+            this.BtnConfirm.Click += new System.EventHandler(this.BtnConfirm_Click);
+            // 
+            // BtnExit
+            // 
+            this.BtnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnExit.Location = new System.Drawing.Point(197, 144);
+            this.BtnExit.Name = "BtnExit";
+            this.BtnExit.Size = new System.Drawing.Size(75, 23);
+            this.BtnExit.TabIndex = 9;
+            this.BtnExit.Text = "退出";
+            this.BtnExit.UseVisualStyleBackColor = true;
+            this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
+            // 
+            // MainFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(589, 396);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(332, 203);
+            this.ControlBox = false;
+            this.Controls.Add(this.BtnExit);
+            this.Controls.Add(this.BtnConfirm);
+            this.Controls.Add(this.LblKmsAddress);
+            this.Controls.Add(this.LblInterval);
+            this.Controls.Add(this.TbInterval);
+            this.Controls.Add(this.TbKmsAddress);
+            this.Name = "MainFrom";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "MF集群管控配置";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.TextBox TbKmsAddress;
+        private System.Windows.Forms.TextBox TbInterval;
+        private System.Windows.Forms.Label LblInterval;
+        private System.Windows.Forms.Label LblKmsAddress;
+        private System.Windows.Forms.Button BtnConfirm;
+        private System.Windows.Forms.Button BtnExit;
     }
 }
 
