@@ -1,12 +1,11 @@
-﻿using System.IO;
-using System.ServiceProcess;
-using System.Threading;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.ServiceProcess;
+using System.Threading;
 
 namespace MFAdminService
 {
@@ -42,7 +41,7 @@ namespace MFAdminService
         {
             InitializeComponent();
             FilePath = @"C:\ProgramData\MFAdmin";
-            ErrorLog = $"{FilePath}\\error.json";
+            ErrorLog = $"{FilePath}\\error.log";
             Settings = JsonConvert.DeserializeObject<SettingModel>(File.ReadAllText($"{FilePath}\\settings.json"));
             Reader = new Thread(SolveRequest);
             Activation = new Thread(Activate);
@@ -75,9 +74,11 @@ namespace MFAdminService
         /// </summary>
         private void SolveRequest()
         {
+            if (!Settings.Enabled) return;
             try
             {
-                var items = JsonConvert.DeserializeObject<IEnumerable<ServiceModel>>($"{FilePath}\\services.json");
+                var items = JsonConvert.DeserializeObject<List<ServiceModel>>(
+                    File.ReadAllText($"{FilePath}\\services.json"));
                 var services = ServiceController.GetServices();
                 foreach (var item in items)
                 {
@@ -85,11 +86,11 @@ namespace MFAdminService
                     {
                         var s = services.First(tmp => tmp.ServiceName == service);
                         if (s is null) throw new NullReferenceException();
-                        if (item.Switch && s.Status != ServiceControllerStatus.Running)
+                        if (item.Enabled && s.Status != ServiceControllerStatus.Running)
                         {
                             s.Start();
                         }
-                        else if (!item.Switch && s.Status != ServiceControllerStatus.Stopped)
+                        else if (!item.Enabled && s.Status != ServiceControllerStatus.Stopped)
                         {
                             s.Stop();
                         }
@@ -121,12 +122,12 @@ namespace MFAdminService
                 };
                 winact.Start();
                 int i;
-                for (i = 0; i < 5; i++)
+                for (i = 0; i < Settings.Check; i++)
                 {
-                    Thread.Sleep(5000);
+                    Thread.Sleep(Settings.Interval);
                     if (!winact.HasExited) break;
                 }
-                if (i == 5) throw new Exception("Windows Activation Timeout!");
+                if (i == Settings.Check) throw new Exception("Windows Activation Timeout!");
                 winact.Dispose();
                 winact = new Process
                 {
@@ -138,12 +139,12 @@ namespace MFAdminService
                 }
                 };
                 winact.Start();
-                for (i = 0; i < 5; i++)
+                for (i = 0; i < Settings.Check; i++)
                 {
-                    Thread.Sleep(5000);
+                    Thread.Sleep(Settings.Interval);
                     if (!winact.HasExited) break;
                 }
-                if (i == 5) throw new Exception("Windows Activation Timeout!");
+                if (i == Settings.Check) throw new Exception("Windows Activation Timeout!");
                 var officeact = new Process
                 {
                     StartInfo =
@@ -154,12 +155,12 @@ namespace MFAdminService
                 }
                 };
                 officeact.Start();
-                for (i = 0; i < 5; i++)
+                for (i = 0; i < Settings.Check; i++)
                 {
-                    Thread.Sleep(5000);
+                    Thread.Sleep(Settings.Interval);
                     if (!officeact.HasExited) break;
                 }
-                if (i == 5) throw new Exception("Office Activation Timeout!");
+                if (i == Settings.Check) throw new Exception("Office Activation Timeout!");
                 officeact.Dispose();
                 officeact = new Process
                 {
@@ -171,12 +172,12 @@ namespace MFAdminService
                 }
                 };
                 officeact.Start();
-                for (i = 0; i < 5; i++)
+                for (i = 0; i < Settings.Check; i++)
                 {
-                    Thread.Sleep(5000);
+                    Thread.Sleep(Settings.Interval);
                     if (!officeact.HasExited) break;
                 }
-                if (i == 5) throw new Exception("Office Activation Timeout!");
+                if (i == Settings.Check) throw new Exception("Office Activation Timeout!");
             }
             catch (Exception e)
             {
@@ -186,7 +187,7 @@ namespace MFAdminService
 
         private void WriteErrorLog(Exception e)
         {
-            var json = JsonConvert.SerializeObject(e, Formatting.Indented);
+            var json = $"{DateTime.Now}\n{JsonConvert.SerializeObject(e, Formatting.Indented)}";
             File.AppendAllText(ErrorLog, json);
         }
         /// <inheritdoc />

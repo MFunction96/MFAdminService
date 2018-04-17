@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MFAdminService
+namespace MFAdminConfig
 {
     public class ServiceModel
     {
