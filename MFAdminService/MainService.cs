@@ -42,9 +42,17 @@ namespace MFAdminService
             InitializeComponent();
             FilePath = @"C:\ProgramData\MFAdmin";
             ErrorLog = $"{FilePath}\\error.log";
-            Settings = JsonConvert.DeserializeObject<SettingModel>(File.ReadAllText($"{FilePath}\\settings.json"));
-            Reader = new Thread(SolveRequest);
-            Activation = new Thread(Activate);
+            try
+            {
+                Settings = JsonConvert.DeserializeObject<SettingModel>(File.ReadAllText($"{FilePath}\\settings.json"));
+                Reader = new Thread(SolveRequest);
+                Activation = new Thread(Activate);
+            }
+            catch (Exception e)
+            {
+                WriteErrorLog(e);
+            }
+            
         }
         /// <inheritdoc />
         /// <summary>
@@ -74,32 +82,35 @@ namespace MFAdminService
         /// </summary>
         private void SolveRequest()
         {
-            if (!Settings.Enabled) return;
-            try
+            if (Settings.Enabled)
             {
-                var items = JsonConvert.DeserializeObject<List<ServiceModel>>(
-                    File.ReadAllText($"{FilePath}\\services.json"));
-                var services = ServiceController.GetServices();
-                foreach (var item in items)
+                try
                 {
-                    foreach (var service in item.Services)
+                    var items = JsonConvert.DeserializeObject<List<ServiceModel>>(
+                        File.ReadAllText($"{FilePath}\\services.json"));
+                    var services = ServiceController.GetServices();
+                    foreach (var item in items)
                     {
-                        var s = services.First(tmp => tmp.ServiceName == service);
-                        if (s is null) throw new NullReferenceException();
-                        if (item.Enabled && s.Status != ServiceControllerStatus.Running)
+                        foreach (var service in item.Services)
                         {
-                            s.Start();
-                        }
-                        else if (!item.Enabled && s.Status != ServiceControllerStatus.Stopped)
-                        {
-                            s.Stop();
+                            var s = services.First(tmp => tmp.ServiceName == service);
+                            if (s is null) throw new NullReferenceException();
+                            if (item.Enabled && s.Status != ServiceControllerStatus.Running)
+                            {
+                                s.Start();
+                            }
+                            else if (!item.Enabled && s.Status != ServiceControllerStatus.Stopped)
+                            {
+                                s.Stop();
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                WriteErrorLog(e);
+                catch (Exception e)
+                {
+                    WriteErrorLog(e);
+                }
+
             }
 
             Thread.Sleep(Settings.Interval);
@@ -187,7 +198,7 @@ namespace MFAdminService
 
         private void WriteErrorLog(Exception e)
         {
-            var json = $"{DateTime.Now}\n{JsonConvert.SerializeObject(e, Formatting.Indented)}";
+            var json = $"{DateTime.Now} {Environment.CommandLine}\n{JsonConvert.SerializeObject(e, Formatting.Indented)}";
             File.AppendAllText(ErrorLog, json);
         }
         /// <inheritdoc />

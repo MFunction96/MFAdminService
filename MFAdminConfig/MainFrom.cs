@@ -23,7 +23,7 @@ namespace MFAdminConfig
         /// <summary>
         /// 
         /// </summary>
-        private string Path { get; }
+        private string FilePath { get; }
         /// <summary>
         /// 
         /// </summary>
@@ -34,23 +34,16 @@ namespace MFAdminConfig
         public MainFrom()
         {
             InitializeComponent();
-            Path = @"C:\ProgramData\MFAdmin";
-            var dict = new DirectoryInfo(Path);
+            FilePath = @"C:\ProgramData\MFAdmin";
+            var dict = new DirectoryInfo(FilePath);
             if (!dict.Exists) dict.Create();
-            ErrorLog = $"{Path}\\error.log";
+            ErrorLog = $"{FilePath}\\error.log";
             try
             {
-                var json = File.ReadAllText($"{Path}\\settings.json");
+                var json = File.ReadAllText($"{FilePath}\\settings.json");
                 Setting = JsonConvert.DeserializeObject<SettingModel>(json);
-                json = File.ReadAllText($"{Path}\\services.json");
+                json = File.ReadAllText($"{FilePath}\\services.json");
                 Services = JsonConvert.DeserializeObject<List<ServiceModel>>(json) ?? new List<ServiceModel>();
-                /*var list = JObject.Parse(File.ReadAllText($"{Path}\\services.json")).Properties();
-                foreach (var obj in list)
-                {
-                    // JToken.ToObject is a helper method that uses JsonSerializer internally
-                    var service = obj.ToObject<ServiceModel>();
-                    Services.Add(service);
-                }*/
             }
             catch (Exception e)
             {
@@ -72,13 +65,13 @@ namespace MFAdminConfig
                 Check = int.Parse(TbCheck.Text),
                 KmsServer = TbKmsAddress.Text
             };
-            var dir = new DirectoryInfo(Path);
+            var dir = new DirectoryInfo(FilePath);
             if (!dir.Exists) dir.Create();
             var json = JsonConvert.SerializeObject(Setting, Formatting.Indented);
-            File.WriteAllText($"{Path}\\settings.json", json);
+            File.WriteAllText($"{FilePath}\\settings.json", json);
             json = Services.Count == 0 ? string.Empty : JsonConvert.SerializeObject(Services, Formatting.Indented);
-            File.WriteAllText($"{Path}\\services.json", json);
-            var fileInfo = new FileInfo($"{Path}\\services.json");
+            File.WriteAllText($"{FilePath}\\services.json", json);
+            var fileInfo = new FileInfo($"{FilePath}\\services.json");
             var fileSecurity = fileInfo.GetAccessControl();
             fileSecurity.AddAccessRule(new FileSystemAccessRule("Everyone", FileSystemRights.FullControl, AccessControlType.Allow));
             fileInfo.SetAccessControl(fileSecurity);
@@ -121,7 +114,7 @@ namespace MFAdminConfig
         /// <param name="e"></param>
         private void WriteErrorLog(Exception e)
         {
-            var json = $"{DateTime.Now}\n{JsonConvert.SerializeObject(e, Formatting.Indented)}";
+            var json = $"{DateTime.Now} {Environment.CommandLine}\n{JsonConvert.SerializeObject(e, Formatting.Indented)}";
             File.AppendAllText(ErrorLog, json);
         }
         /// <summary>
