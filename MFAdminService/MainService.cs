@@ -139,7 +139,6 @@ namespace MFAdminService
                     if (!winact.HasExited) break;
                 }
                 if (i == Settings.Check) throw new Exception("Windows Activation Timeout!");
-                winact.Dispose();
                 winact = new Process
                 {
                     StartInfo =
@@ -172,7 +171,6 @@ namespace MFAdminService
                     if (!officeact.HasExited) break;
                 }
                 if (i == Settings.Check) throw new Exception("Office Activation Timeout!");
-                officeact.Dispose();
                 officeact = new Process
                 {
                     StartInfo =

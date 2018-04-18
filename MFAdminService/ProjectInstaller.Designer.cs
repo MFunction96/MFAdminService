@@ -33,7 +33,7 @@
             // 
             // MFAdminServiceProcessInstaller
             // 
-            this.MFAdminServiceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.LocalService;
+            this.MFAdminServiceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.LocalSystem;
             this.MFAdminServiceProcessInstaller.Password = null;
             this.MFAdminServiceProcessInstaller.Username = null;
             // 
